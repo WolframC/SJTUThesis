@@ -3,8 +3,8 @@
 
 % 载入 SJTUThesis 模版
 % \documentclass[degree=doctor, zihao=-4, language=english, review]{sjtuthesis}
-\documentclass[degree=master, zihao=-4]{sjtuthesis}
-% \documentclass[degree=bachelor, openany, oneside]{sjtuthesis}
+%\documentclass[degree=master, zihao=-4]{sjtuthesis}
+ \documentclass[degree=bachelor, language=english, openany, oneside]{sjtuthesis}
 % \documentclass[degree=course, language=english, openright, twoside]{sjtuthesis}
 % 选项
 %   degree=[doctor|master|bachelor|course],     % 必选，学位类型
@@ -56,18 +56,20 @@
 % 使用阿拉伯数字对正文编号
 \mainmatter
 
-% 正文内容
-\input{tex/intro}
-\input{tex/floats}
-\input{tex/math_and_citations}
+% 论文正文
+\input{tex/1model}
+\input{tex/2theory}
+\input{tex/3result}
+
+% 全文总结
 \input{tex/summary}
 
 % 使用英文字母对附录编号
 \appendix
 
 % 附录内容，本科学位论文可以用翻译的文献替代。
-\input{tex/app_maxwell_equations}
-\input{tex/app_flow_chart}
+%\input{tex/app_maxwell_equations}
+%\input{tex/app_flow_chart}
 
 % 文后无编号部分
 \backmatter
@@ -82,12 +84,13 @@
 
 % 发表论文、参与项目、申请专利、简历
 % 盲审论文中，发表学术论文及参与科研情况等仅以第几作者注明即可，不要出现作者或他人姓名
-\input{tex/publications}
-\input{tex/projects}
-\input{tex/patents}
+
+%\input{tex/publications}
+%\input{tex/projects}
+%\input{tex/patents}
 \input{tex/resume}
 
 % 中文学士学位论文要求在最后有一个英文大摘要，单独编页码，英文学士学位论文不需要
-\input{tex/end_english_abstract}
+%\input{tex/end_english_abstract}
 
 \end{document}

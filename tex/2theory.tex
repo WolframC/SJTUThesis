@@ -1,0 +1,130 @@
+% !TeX root = ../thesis.tex
+\newcommand{\mat}[1]{\left(\begin{matrix}#1\end{matrix}\right)}
+\newcommand{\arr}[2][n]{#2_1,#2_2,\cdots,#2_{#1}}
+\newcommand{\xsim}[1]{\stackrel{#1}{\sim}}
+\newcommand{\iprod}[2]{\langle#1,#2\rangle}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\mcal}[1]{\mathcal{#1}}
+\newcommand{\mfk}[1]{\mathfrak{#1}}
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\newcommand{\mcr}[1]{\mathscr{#1}}
+\newcommand{\on}[1]{\operatorname{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\mr}[1]{\mathring{#1}}
+\newcommand{\lr}[1]{\langle{#1}\rangle}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+
+\chapter{Theoretical Framework}
+
+\section{Statistical Mechanics}
+\subsection{Theory of Ensembles}
+
+\subsection{Liquid Crystal Theory of Onsager}
+
+\subsection{Parsons-Lee's Approximation}
+
+\subsection{Straley's Method}
+
+\section{Density Function Theory}
+\subsection{Variation Method}
+
+\subsection{Iteration Equation}
+
+\section{Application to FCh Model}
+This section collects the concrete computation of properties of FCh model.
+
+
+First, write
+\begin{equation}
+	F^*=F_{id}^*+F_{ex}^*,
+\end{equation}
+the first term is
+\begin{equation}
+	F_{id}^*=\ln\eta-1+\int\on{d}\vec{u}f(\vec{u})\ln f(\vec{u}),
+\end{equation}
+then due to Straley[], we have
+\begin{align}
+	F_{ex}^*&=\frac{\eta}{2}\int\on{d}\vec{u}_1\on{d}\vec{u}_2M_0^*(\vec{u}_1,\vec{u}_2)f(\vec{u}_1)f(\vec{u}_2)-K_t^*q+\frac{1}{2}K_2^*q^2\\
+	K_t^*&=-\frac{\eta}{2}\int\on{d}\vec{u}_1\on{d}\vec{u}_2M_1^*(\vec{u}_1,\vec{u}_2)f(\vec{u}_1)f'(\vec{u}_2)u_{2y}\\
+	K_2^*&=-\frac{\eta}{2}\int\on{d}\vec{u}_1\on{d}\vec{u}_2M_2^*(\vec{u}_1,\vec{u}_2)f'(\vec{u}_1)f'(\vec{u}_2)u_{1y}u_{2y}\\
+\end{align}
+and in which the reduced $k$-th moment is given by
+\begin{equation}
+	M_k^*(\vec{u}_1,\vec{u}_2)=\frac{1}{v_m}\int\on{d}\vec{r}_c\left[e^{-\beta U(\vec{r}_c,\vec{u}_1,\vec{u}_2)}-1\right]r_{cz}^k
+\end{equation}
+
+In addition, the first term of $F_ex^*$ is divided into two parts(due to Parsons-Lee)
+\begin{equation}
+	\begin{split}
+	\frac{\eta}{2}\int\on{d}\vec{u}_1\on{d}\vec{u}_2M_0^*(\vec{u}_1,\vec{u}_2)f(\vec{u}_1)f(\vec{u}_2)&=G(\eta)V_{int}\\
+	&+\frac{\eta}{2}A_{int}
+	\end{split}
+\end{equation}
+
+in which $G(\eta)=\dfrac{4\eta-3\eta^2}{8(1-\eta)^2}$, and
+\begin{align}
+V^*(\vec{u}_1,\vec{u}_2)=\frac{1}{v_m}\int\on{d}\vec{r}_c\left[e^{-\beta U_{rep}(\vec{r}_c,\vec{u}_1,\vec{u}_2)}-1\right],\\
+V_{int} = \int\on{d}\vec{u}_1\on{d}\vec{u}_2V^*(\vec{u}_1,\vec{u}_2)f(\vec{u}_1)f(\vec{u}_2), \\
+A^*(\vec{u}_1,\vec{u}_2)=\frac{1}{v_m}\int\on{d}\vec{r}_c\left[e^{-\beta U_{att}(\vec{r}_c,\vec{u}_1,\vec{u}_2)}-1\right],\\
+A_{int}=\int\on{d}\vec{u}_1\on{d}\vec{u}_2A^*(\vec{u}_1,\vec{u}_2)f(\vec{u}_1)f(\vec{u}_2).
+\end{align}
+
+Up to now all the required quantities are presented. In the next section we write down explicitly all the important physical properties.
+
+\section{Properties}
+\subsection{Reduced free energy}
+\begin{equation}
+	\begin{split}
+	F^*&=\ln\eta -1+\int\on{d}\vec{u}f(\vec{u})\ln f(\vec{u})+\frac{4\eta-3\eta^2}{8(1-\eta)^2}V_{int}+\frac{\eta}{2}A_{int}-K_t^*q+\frac{1}{2}K_2^*q^2
+	\end{split}
+\end{equation}
+
+\subsection{Reduced Pressure}
+The reduced pressure $P^*=\beta v_m P=\eta^2\dfrac{\partial F^*}{\partial\eta}$
+\begin{equation}
+	P^* = \eta + \frac{\eta^2(2-\eta)}{4(1-\eta)^3}V_{int}+\frac{1}{2}\eta^2A_{int}-\frac{1}{2}\eta K_t^*q
+\end{equation}
+
+\subsection{Chemical Potential}
+The reduced chemical potential $\mu^*=\beta\mu=\eta\dfrac{\partial F^*}{\partial\eta}+F^*$
+\begin{equation}
+	\mu^*=\ln\eta+\int\on{d}\vec{u}f(\vec{u})\ln f(\vec{u})+\frac{\eta(3\eta^2-9\eta+8)}{8(1-\eta)^3}V_{int}+\eta A_{int}-K_t^*q
+\end{equation}
+
+\section{DFT part}
+This part deals with the calculation of ODF by minimizing the free energy without cholesteric terms, i.e. in the pure nematic phase
+\begin{equation}
+	F_{n}^*=\ln\eta -1+\int\on{d}\vec{u}f(\vec{u})\ln f(\vec{u})+G(\eta)V_{int}+\frac{\eta}{2}A_{int}
+\end{equation}
+Now we need to minimize the above expression with respect to $\int f(\vec{u})\on{d}\vec{u}=1$, so consider the variation with respect to $f$, for convenience, take $f_{\epsilon}=f+\epsilon g$ then we require
+\begin{equation}
+	\frac{\partial}{\partial\epsilon}\left[F_{n}^*(f_{\epsilon})+\lambda\left(\int f_{\epsilon}\on{d}\vec{u}-1\right)\right]|_{\epsilon=0}=0, \forall g
+\end{equation}
+By calculation, this gives
+\begin{equation}
+	\int\on{d}\vec{u}_1g(\vec{u}_1)\left(1+\ln f(\vec{u}_1)+2G(\eta)\int\on{d}\vec{u}_2f(\vec{u}_2)V^*(\vec{u}_1,\vec{u}_2))+\eta\int\on{d}\vec{u}_2f(\vec{u}_2)A^*(\vec{u}_1,\vec{u}_2))+\lambda\right)=0
+\end{equation}
+Hence
+\begin{equation}
+	1+\lambda+\ln f(\vec{u}_1)+2G(\eta)\int\on{d}\vec{u}_2f(\vec{u}_2)V^*(\vec{u}_1,\vec{u}_2))+\eta\int\on{d}\vec{u}_2f(\vec{u}_2)A^*(\vec{u}_1,\vec{u}_2))=0
+\end{equation}
+By writing
+\begin{equation}
+	\begin{split}
+		I^{rep}(\vec{u})&=2G(\eta)\int\on{d}\vec{u}_2f(\vec{u}_2)V^*(\vec{u},\vec{u}_2)\\
+		I^{att}(\vec{u})&=\eta\int\on{d}\vec{u}_2f(\vec{u}_2)A^*(\vec{u},\vec{u}_2))
+	\end{split}
+\end{equation}
+
+The iteration equation is given by
+\begin{equation}
+	f_{n+1}(\vec{u})=\on{Norm}\left(e^{-I_n^{rep}(\vec{u})-I_n^{att}(\vec{u})}\right)
+\end{equation}
+in which $\on{Norm}$ means normalizing the integral over all $\vec{u}$ to $1$.
+
