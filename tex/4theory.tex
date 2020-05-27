@@ -1,0 +1,395 @@
+% !TeX root = ../thesis.tex
+
+\chapter{Density Function Theory}\label{chap:theory}
+
+%\section{Statistical Mechanics}
+%All the topics covered in this thesis are restricted to \textbf{equilibrium statistical mechanics}.
+In this section we will introduce the density function theory (DFT) from scratch and particularly focus on how to use it in the prediction of liquid crystals, and then introduce the Parsons-Lee's approximation and Straley's method which can significantly improve the original theory of Onsager. Finally we introduce a general iteration method to solve DFT.
+
+Before formally introducing density function theory, we have to recapitulate some of the basic conclusions in ensemble theory.
+
+\section{Ensemble Theory}
+%In this part, we will do our best to provide a self-contained introduction of the fundamental knowledge of ensemble theory , which is at the core of statistical mechanics. Readers who are familiar with the derivation are free to skip to the Sec. \ref{SM-ToE-Sum} to read a summary. And we recommend those who are not satisfied to read textbooks[REF of SM].
+
+%\subsubsection{Systems and Ensembles}
+%We define a \textbf{microstate}(replica) of a system to be a specific state in which the mechanical information of every particle is determined. And we define a \textbf{macrostate}(ensemble) of a system to be a probability distribution of all possible microstates. To identify a microstate, you have to designate all the velocities and position of each particles involved, while to identify a macrostate, you only need much fewer physical quantities.
+%
+%For example, there is a cup of water on the table. This, overall, is a macrostate, and for example, temperature is enough to capture enough information of all water molecules (their averaged kinetic energy). But if you take a magical photo which can record the kinetic information of every molecule, the information contained in the photo is then a microstate, and you need a bunch of variables to identify it, in the magnitude of at least $10^{23}$.
+%
+%Below we can assume that microstates are discrete, and all the infinite summation are assumed to be convergent.
+%
+%An ensemble is a working conception of macrostate, it determines a macrostate, and it contains a collection of replicas, each of which represents a microstate, together with a probability distribution.
+%
+%As for a system, there are three crucial parameters: total energy $E$, number of particles $N$ and volume of the system $V$. For different systems, we have different corresponding ensembles. The most important ones are micro-canonical ensemble, canonical ensemble and grand-canonical ensemble. We next dive into them one by one.
+%
+%\subsubsection{Isolated system}
+%An isolated system is a thermodynamic system which does not exchange energy, particles and volume with the environment, i.e. it has fixed $E,V,N$. And the corresponding ensemble is called micro-canonical ensemble.
+%
+%As a pioneer of statistical mechanics, Boltzmann proposed the posulate of \textit{a prior} probability: For an isolated system with given $(E,V,N)$, the system can be found with equal probability in any microstate.
+%
+%Now assume the total number of all possible microstates is $\Omega(E,V,N)$, this is the micro-canonical partition function. Then for any given state $s$, we have
+%\begin{equation}
+%	p_{mc}(s) = \frac{1}{\Omega(E,V,N)}.
+%\end{equation}
+%
+%In any ensemble, the Gibbs entropy is defined as
+%\begin{equation}
+%	S=-k\sum_s p(s)\ln p(s),
+%\end{equation}
+%in which $s$ is taken over all possible microstates according to the requirement of the system.
+%
+%\red{HERE to DO maybe}
+%By using the postulate of equal \textit{a prior} probability, we can derive the condition of three important equilibriums: thermodynamic equilibrium, mechanical equilibrium and chemical equilibrium, which corresponds to equal temperature, pressure and chemical potential.
+%\red{HERE to DO maybe}
+%
+%\subsubsection{Closed system}
+%A closed system is a thermodynamic system which may only exchange energy with the environment. The corresponding ensemble is then called canonical ensemble. Since it is in equilibrium with the environment, although its energy $E$ may vary, it must has a fixed temperature $T$ according to the equilibrium condition.
+%
+%The probability of a given state $s$ is proportional to $e^{-\beta E_s}$(Boltzmann distribution \red{which can be derived from previous}), then by normalization we get the expression of canonical partition function and the canonical distribution.
+%\begin{equation}
+%	Z(T,V,N)=\sum_se^{-\beta E_s}, p_c(s) = \frac{e^{-\beta E_s}}{Z(T,V,N)}
+%\end{equation}
+%By splitting the summation $\sum_s$ to $\sum_E\sum_{s, E_s=E}$, we get the relation between canonical partition function and micro-canonical partition function:
+%\begin{equation}
+%	Z(T,V,N) = \sum_s e^{-\beta E_s} =\sum_E \Omega(E,V,N)e^{-\beta E}.
+%\end{equation}
+%
+%By definition of Gibbs entropy, we know
+%\begin{equation}
+%	S=k\ln Z + E/T,
+%\end{equation}
+%hence $-kT\ln Z(T,V,N) =E-TS= F(T,V,N)$, this is the Helmholtz free energy. From its differential form
+%\begin{equation}
+%	\on{d}F = -S\on{d}T-P\on{d}V+\mu\on{d}N,
+%\end{equation}
+%we know the other physical properties expressed from the partition function
+%\begin{equation}
+%	S=-\frac{\partial F}{\partial T}, P=-\frac{\partial F}{\partial V}, \mu = \frac{\partial F}{\partial N}.
+%\end{equation}
+%
+%\subsubsection{Open system}
+%An open system is a thermodynamic system which may exchange both energy and particles with the environment. The corresponding ensemble is then called grand-canonical ensemble. Although its energy $E$ and number of particles $N$ may vary, it must has a fixed temperature $T$ and chemical potential $\mu$.
+%
+%By the similar argument, the probability of a given state $s$ is proportional to $e^{-\beta(E_s-\mu N_s)}$, then by normalization we get the expression of grand-canonical partition function and the grand-canonical distribution.
+%\begin{equation}
+%	\Xi(T,V,\mu)=\sum_se^{-\beta (E_s-\mu N_s)}, p_{gc}(s) = \frac{e^{-\beta (E_s-\mu N_s)}}{\Xi(T,V,\mu)}
+%\end{equation}
+%
+%By splitting  the summation $\sum_s$ to $\sum_N\sum_{s, N_s=N}$, we get the relation between grand-canonical partition function and canonical partition function:
+%\begin{equation}
+%	\Xi(T,V,\mu) = \sum_s e^{-\beta (E_s-\mu N_s)} =\sum_N Z(T,V,N)e^{\beta \mu N}.
+%\end{equation}
+%Now the grand potential is defined as $\Phi(T,V,\mu)=-k\ln\Xi(T,V,\mu)$, since
+%\begin{equation}
+%	\ln p_{gc}(s) = -\ln\Xi - \beta (E_s - \mu N_s)
+%\end{equation}
+%by taking the ensemble average, we get
+%\begin{equation}
+%	-S = k\lr{\ln p_{gc}(s)} = -\ln\Xi - \lr{E-\mu N}/T
+%\end{equation}
+%Hence we have
+%\begin{equation}\label{Eqn:GrandPot}
+%	\Phi(T,V,\mu) = E - TS - \mu N
+%\end{equation}
+%
+%Next we derive physical properties from the partition function, from Eqn. \ref{Eqn:GrandPot}, we know
+%\begin{equation}
+%	\on{d}\Phi = -S\on{d}T - P\on{d}V- N\on{d}\mu,
+%\end{equation}
+%so we have
+%\begin{equation}
+%	S=-\frac{\partial\Phi}{\partial T}, P = -\frac{\partial\Phi}{\partial V}, N = -\frac{\partial\Phi}{\partial\mu}
+%\end{equation}
+%
+%
+%In addition, since $E,S,V,N$ are all extensive quantities, we know $E(S,V,N)$ is homogeneous with respect to $S,V,N$, then according to Euler's relation, we have
+%\begin{equation}
+%	\frac{\partial E}{\partial S}S+\frac{\partial E}{\partial V}V+\frac{\partial E}{\partial N}N=E=TS-PV+\mu N,
+%\end{equation}
+%this is called the Gibbs-Duhem relation.
+
+Tab. \ref{tab:ensemble} is a summary of three most common ensembles, and we give below the formulas to derive other physical properties in case of canonical system and grand-canonical system, these are important in the following derivations.
+
+\begin{table}[H]
+	\caption{Summary of Ensembles}
+	\label{tab:ensemble}
+	\centering
+	\begin{tabular}{ccccc}
+		\toprule
+		System & Condition & Ensemble & Partition Function & Probability $p(s)$\\
+		\midrule
+		Isolated system & $E,N,V$ fixed & micro-canonical & $\Omega(E,V,N)$ & $\dfrac{1}{\Omega(E,V,N)}$\\
+		Closed system & $N,V$ fixed & canonical & $Z(T,V,N)$ & $\dfrac{e^{-\beta E_s} }{Z(T,V,N)}$\\
+		Open system & $V$ fixed & grand-canonical & $\Xi(T,V,\mu)$&$\dfrac{e^{-\beta(E_s-\mu N_s)} }{ \Xi(T,V,\mu)}$\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+The relations between partition function
+\begin{equation*}
+	\begin{split}
+		Z(T,V,N) = \sum_s e^{-\beta E_s} =\sum_E \Omega(E,V,N)e^{-\beta E},\\
+		\Xi(T,V,\mu) = \sum_s e^{-\beta (E_s  - \mu N_s)} = \sum_N Z(T,V,N)e^{\beta N\mu}.
+	\end{split}
+\end{equation*}
+
+\subsection{Minimal Free Energy Principle}
+In fact, in equilibrium statistical mechanics, we have several equivalent principles (postulates), we list them here without reasoning, because the readers should be familiar with all of this at their first course of thermodynamics.
+
+\paragraph{Postulate of Equal \textit{a prior} probability}
+For an isolated system with given $(E,V,N)$, the system can be found with equal probability in any microstate.
+\paragraph{principle of Maximal Entropy}
+For an isolated system, the Gibbs entropy reaches its maximal at its equilibrium state.
+\paragraph{principle of Minimal Free Energy}
+For a closed system, the Helmholtz free energy reaches its minimal at its equilibrium state.
+\paragraph{principle of Maximum Work}
+For a closed system, the maximal work which the system is capable to do to the environment in a given process is the change in Helmholtz free energy.
+
+\subsection{Ideal Gases}
+This part will contain the concrete calculation of partition function of a system, in particular, ideal gas.
+
+In a classical system, the space is continuous, hence the summation $\sum_s$ becomes the integration in phase space $\int\prod\on{d}p_i\on{d}q_i$, in which $p$ and $q$ are all $3$-dimensional vector, and $i$ is taken over all $N$ particles. The canonical partition function then reads
+\begin{equation}
+	Z(T,V,N) = \frac{1}{h^{3N}N!}\int \prod_i\on{d}p_i\on{d}q_i e^{-\beta H(p,q)},
+\end{equation}
+in which coefficient $h^{3N}$ is proposed by Landau to nondimensionalize the partition function, and coefficient $N!$ is proposed by Gibbs to tackle the distinguishability of identical particles.
+
+As for ideal gas, the Hamiltonian writes
+\begin{equation}
+	H_{id}=\sum_i \frac{p_i^2}{2m},
+\end{equation}
+hence the integral in the partition function $Z$ can be computed directly,
+\begin{equation}
+	Z(T,V,N) = \frac{V^N}{h^{3N}N!}\left(\int\on{d}pe^{-\beta p^2/2m}\right)^N = \frac{V^N}{N!\Lambda^{3N}}, \Lambda = \frac{h}{\sqrt{2\pi m kT}},
+\end{equation}
+in which the second equality is got from Gaussian integral, then the free energy can be computed
+\begin{equation}
+	\frac{F_{id}}{N}=-\frac{kT}{N}\ln Z(T,V,N) = kT\left[\ln (\rho\Lambda^3) - 1\right],
+\end{equation}
+in which $\rho = N/V$ is the number density.
+
+As for the calculation of ideal gases, we stop here for convenience, because it is easy to further compute pressure, chemical potential, entropy from its derivative. We proceed to do this when tackling the liquid crystal model.
+
+\subsection{Non-ideal Gases}
+As for non-ideal gases, there is mutual interaction between molecules, as in most common cases, only two-body interaction is involved, so the Hamiltonian can be written as
+\begin{equation}
+	H_{ni}=\sum_i\frac{p_i^2}{2m}+\sum_{i<j}u(q_i,q_j).
+\end{equation}
+Now the partition function can be again computed
+\begin{equation}
+	Z(T,V,N) = \frac{Q_N}{N!\Lambda^{3N}},
+\end{equation}
+in which the denominator comes from kinetic energy while the enumerator $Q_N$ is the configurational integral, and comes from potential energy,
+\begin{equation}
+	Q_N = \int\prod_i\on{d}q_i\prod_{i<j}e^{-\beta u(q_i,q_j)}.
+\end{equation}
+So in this case the free energy is given by
+\begin{equation}
+	F_{ni} = -kT\ln Z(T,V,N) = -kT\ln\frac{V^N}{N!\Lambda^{3N}} - kT\ln\frac{Q_N}{V^N} = F_{id} - kT\ln\frac{Q_N}{V^N}.
+\end{equation}
+
+Mayer's is function is defined as $f_{ij} = e^{-\beta u(q_i,q_j)}-1$ and used to tackle the integration in $Q_N$,
+\begin{equation}
+	\begin{split}
+		Q_N &= \int\prod_i\on{d}q_i\prod_{i<j}(f_{ij}+1)\\
+		&=V^N\left[1+\frac{N^2}{V}\int f(q)\on{d}q+\mcal{O}(f^2)\right].
+	\end{split}
+\end{equation}
+
+Then the expression of $F$ can be written as
+\begin{equation}
+	F_{ni} = F_{id} + kT\frac{N^2}{V}B_2+\cdots,
+\end{equation}
+in which $B_2$ is the second Virial coefficient, it is also a half of the excluded volume
+\begin{equation}
+	B_2 = -\frac{1}{2}\int f(q)\on{d}q.
+\end{equation}
+
+Now we give how physical properties can be computed from the partition function.
+
+In the canonical ensemble, we have
+\begin{equation}
+	\begin{split}
+		F(T,V,N) = -\frac{1}{\beta}\ln Z(T,V,N) = E-TS,\\
+	S=-\frac{\partial F}{\partial T}, P=-\frac{\partial F}{\partial V}, \mu = \frac{\partial F}{\partial N}.
+	\end{split}
+\end{equation}
+
+In the grand-canonical ensemble, we have
+\begin{equation}
+	\begin{split}
+		\Phi(T,V,\mu) = -\frac{1}{\beta}\ln\Xi(T,V,\mu) = -PV,\\
+		S=-\frac{\partial\Phi}{\partial T}, P = -\frac{\partial\Phi}{\partial V}, N = -\frac{\partial\Phi}{\partial\mu}.
+	\end{split}
+\end{equation}
+
+\section{Density Function Theory}
+The most important physical principle in density function theory is the minimal free energy principles, which has been stated in the previous section. The equilibrium single-particle density of a system is a function of its position, to be more precise, it is a function in the whole configuration space with integral $1$, as for spherically symmetric particles, the density is given by $\rho(q)$, in which $q$ is the generalized coordinates for position. As for a rotational symmetric uniaxial molecule, the density function is given by $\rho(q,u)$, in which $u$ is the generalized coordinate for orientation, in practice it is a vector on a unit sphere.
+
+In the latter case for a uniaxial molecule, the density function can be expresser in terms of Dirac's delta function:
+\begin{equation}\label{eqn:denDfn}
+	\rho(q, u)=\left\langle\sum_{i=1}^{N} \delta (q_i-q)\delta(u_{i}-u)\right\rangle
+\end{equation}
+The bracket means an ensemble average. In homogeneous case, we know $\rho(q,u)$ is a constant, in a nematic phase, the molecules will be preferentially ordered along a director, but the distribution of position is still uniform, this gives that
+\begin{equation}
+	\rho_{ne}(q,u)=\rho\varphi(u),
+\end{equation}
+in which $\rho$ is the mean number density, and $\varphi(u)$ is the so-called orientational distribution function (ODF), and it is normalized to $1$. As for smetic-A phases, the molecules are not only orientationally ordered, but also translationally ordered along the preferred director. Now the density function is given by
+\begin{equation}
+	\rho_{sA}(q,u)=\rho_{sA}(q_z,u),
+\end{equation}
+if $l$ is defined as the smetic layer thickness, then $\rho$ is a periodic function in $z$, with periodicity $l$.
+
+Density function theory allows us to find out the single-particle density without the definition Eqn. \ref{eqn:denDfn}, instead, the principle of minimal free energy is used, and the density function which made free energy minimal is the desired result of real density function.
+
+\section{Liquid Crystal Theory of Onsager}
+This theory is based on the famous paper\cite{Onsager1949NYAS} of Onsager in 1949. Instead of spheres, we consider cylinders as our model of a molecule. It is discovered that liquid crystals undergoes an isotropic-nematic phase transition at low temperature and high density. Due to the spontaneous rotational symmetry breaking, the postulate of equal \textit{a prior} probability no more makes sense, so Onsager proposed to assume that there exists a particular director as the previous analysis shows. And assume $\rho_{ne}(q,u)=\rho\varphi(u)$, $\varphi(u)$ is then the orientation distribution function (ODF), note that $u$ will always means a vector on the unit sphere $S^2$ here and below. The normalization of ODF requires
+\begin{equation}
+	\int_{u\in S^2}\varphi(u)\on{d}u =1.
+\end{equation}
+In this case, the revised partition function is then given by
+\begin{equation}
+	Z_{lc}(T,V,N) = \frac{1}{N!\Lambda^{3N}}\int\prod_i\on{d}q_i\on{d}u_i\varphi(u_i)\prod_{i<j}e^{-\beta u(q_i,u_i;q_j;u_j)},
+\end{equation}
+and the free energy is calculated
+\begin{equation}
+	\begin{split}
+		\frac{\beta}{N} F_{lc}&= -\frac{1}{N}\ln Z_{lc}(T,V,N)\\
+		&=\ln(\rho\Lambda^3) - 1 + \int_{u\in S^2}\on{d}u \varphi(u)\ln\varphi(u) +\frac{\beta}{N}F_{ex},
+	\end{split}
+\end{equation}
+The first term comes from the free energy of ideal gas (only kinetic energy involved), the second term is the entropy contributed by orientational tendency. The last term is due to the non zero mutual interaction, in particular, if we take a second-order approximation, it can be written as
+\begin{equation}
+	\frac{\beta}{N}F_{ex} = \frac{\rho}{2}\int \on{d}u_1\on{d}u_2\varphi(u_1)\varphi(u_2)\int\on{d}q\left(1-e^{-\beta u(0,u_1;q,u_2)}\right),
+\end{equation}
+this is due to the contribution of excluded volume.
+
+To summarize what have been done now, we have already pre-assumed that there exists a ODF, and calculated the free energy accordingly. Now we use the minimal free energy principle, the system should reach equilibrium when the free energy reaches its minimum. So we can use variational method to find out the corresponding $\varphi(u)$ to make $F_{lc}$ reaches its minimum. We will derive how this can be done in Chap. \ref{chap:theory}. Before that, we will introduce more methods to get a better expression for $F_{ex}$.
+
+\section{Parsons-Lee's Approximation}
+Let $v_m$ be the molecular volume, and let $F^*\equiv\beta F/N$ be the reduced free energy, $\eta = \rho v_m$ be the packing fraction, we can rewrite the second-order approximation,
+\begin{equation}
+	\begin{split}
+		F_{ex}^* = \frac{\eta}{2}\int \on{d}u_1\on{d}u_2\varphi(u_1)\varphi(u_2)V_{ex}^*(u_1,u_2)\\
+		V_{ex}^*(u_1,u_2) = \frac{1}{v_m}\int\on{d}q\left[1-e^{-\beta u(0,u_1;q,u_2)}\right]
+	\end{split}
+\end{equation}
+
+According to Parsons-Lee's approximation based on the equation of state of hard spheres, the coefficient on the left $\eta/2$ can be replaced by $G(\eta)$,
+\begin{equation}
+	G(\eta)=\dfrac{4\eta-3\eta^2}{8(1-\eta)^2}.
+\end{equation}
+It is easily seen that $G(\eta)\sim\eta/2$ when $\eta\rightarrow 0$.
+
+
+\section{Straley's Method}
+Straley's method is a useful way to describe the cholesteric phase of a liquid crystal, in particular, it is assumed in every plane of the space, the molecules are still at nematic phase and surely have a preferred orientation, and along the normal direction of the plane, the preferred orientation is rotating. This is the same as the "first assume a distribution, then minimize by variational method" trick proposed by Onsager. To be more precise, write the preferred orientation as
+\begin{equation}
+	n(r)=\cos(qZ)e_1 + \sin(qZ)e_2,
+\end{equation}
+in which $e_1$ and $e_2$ are the unit vector along $x$-axis and $y$-axis. And $q=2\pi/p$ is the pitch wave vector, which describes how fast the preferred orientation is rotating, $p$ is of course the chiral pitch. In the limit of weak chirality, $q$ is relatively small, so it can be approximated by $n(r)=e_1+qZe_2$.
+
+The second-order approximation of excess free energy can be then written as
+\begin{equation}
+	F_{ex}^*=\frac{\eta}{2}\int\on{d}u_1\on{d}u_2M_0^*(u_1,u_2)\varphi(u_1)\varphi(u_2)-K_t^*q+\frac{1}{2}K_2^*q^2
+\end{equation}
+in which $K_t$ and $K_2$ are twist elastic contributions
+\begin{equation}
+	\begin{split}
+		K_t^*&=-\frac{\eta}{2}\int\on{d}u_1\on{d}u_2M_1^*(u_1,u_2)\varphi(u_1)\varphi'(u_2)u_{2y}\\
+		K_2^*&=-\frac{\eta}{2}\int\on{d}u_1\on{d}u_2M_2^*(u_1,u_2)\varphi'(u_1)\varphi'(u_2)u_{1y}u_{2y}
+	\end{split}
+\end{equation}
+and $M_k$ involved are spatial integrals, in particular, $M_0$ coincides with the excluded volume,
+\begin{equation}\label{Eqn:Mk}
+	M_k^*(u_1,u_2)=\frac{1}{v_m}\int\on{d}q \left[1-e^{-\beta u(0,u_1;q,u_2)}\right]q_z^k.
+\end{equation}
+
+\section{Joachim's Expression}\label{Sec:Joachim}
+
+From the derivation above we can see that the integral of excluded volume is important in the calculation, a crucial approximation is considering a hard sphere chain, in which spheres are connected tangentially, while the case is already resolved by Joachim in 2012, and he gave a concrete expression of the excluded volume of it. Overall he solved the flexible case, in which some of the spheres can rotate around. In a nutshell, the analytic expression of the excluded volume of a rigid chain is given by
+\begin{equation}\label{Eqn:Joachim}
+	V_{ex}^*(u)=11-\frac{3}{m}+3.5339(m+\frac{1}{m}-2)\sin\theta,  \cos\theta=u\cdot e_3,
+\end{equation}
+in which $m$ is the length of the chain.
+
+\section{Variation Method}
+Variational method is used to find the minimal value of a function in terms of a function, it originates from \textit{brachistochrone curve} problem raised by Johann Bernoulli. To illustrate the idea and practical method to solve a variational method, we take \textit{brachistochrone curve} problem as an example. Before solving this, we state an important lemma,
+\begin{lemma}
+	If $f\in C^{\infty}[a,b]$, and any $h\in C^{\infty}[a,b]$ satisfying $h(a)=h(b)=0$, the following holds
+	$$
+	\int_a^bf(x)h(x)\on{d} x=0,
+	$$
+	then $f(x)=0, \forall x\in (a,b)$.
+\end{lemma}\label{Lem:Var}
+The proof is omitted since it is easy for anyone who once learned calculus. The \textit{brachistochrone curve} problem is reduced to finding $f$ which makes the following integral minimal
+\begin{equation}
+	A(f)=\int_{x_{1}}^{x_{2}} \sqrt{1+f'^2} \on{d}x.
+\end{equation}
+
+Suppose $f$ is the minimal functional, then for any perturbation $f+\epsilon g, g(x_1)=y_1, g(x_2)=y_2$, it holds that $A(f)\leq A(f+\epsilon g)$. So $G(\epsilon) = A(f+\epsilon g)$ has a minimum at $\epsilon = 0$ for any given $g$, we then have
+\begin{equation}\label{Eqn:Var}
+	\frac{\on{d}}{\on{d}\epsilon}G(\epsilon)|_{\epsilon=0}=0.
+\end{equation}
+Substituting $A$ into Eqn. \ref{Eqn:Var}, we have
+\begin{equation}
+	\int_{x_{1}}^{x_{2}} \frac{f'g'}{\sqrt{1+f'^2}} \on{d} x = \int_{x_{1}}^{x_{2}} g \frac{\on{d}}{\on{d}x}\left[\frac{f'}{\sqrt{1+f'^2}}\right]\on{d}x=0.
+\end{equation}
+Then by the Lem. \ref{Lem:Var}, to find $f$, it suffices to solve the ordinary differential equation
+\begin{equation}
+	\frac{\on{d}}{\on{d}x}\left[\frac{f'}{\sqrt{1+f'^2}}\right]=0.
+\end{equation}
+This is in fact the Euler-Lagrange equation applying to $\sqrt{1+f'^2}$, but the method used above applies to more complicated functional expressions.
+
+
+\section{Iteration Method}\label{Sec:Iter}
+Up to now we have all expressions needed, and can use Minimal free energy principal to find out the corresponding ODF.
+
+In principal, we have to minimize Eqn. \ref{Eqn:FreeEne}, but approximately we may assume the ODF in a cholesteric phase is the same as that in a nematic phase, since cholesteric is locally nematic. Hence we can drop the last two terms which are contributed by chirality.
+
+So now we are using variational method to minimize the free energy in the pure nematic phase, i.e.
+\begin{equation}
+	F_{n}^*=\ln\eta -1+\int\on{d}u\varphi(u)\ln \varphi(u)+G(\eta)V_{int}+\frac{\eta}{2}A_{int}
+\end{equation}
+
+Now we need to minimize the above expression with respect to $\int\varphi(u)\on{d}u=1$, using the variational method introduced above, take $\varphi_{\epsilon}=\varphi+\epsilon\phi$ then we require
+\begin{equation}
+	\frac{\partial}{\partial\epsilon}\left[F_{n}^*(\varphi_{\epsilon})+\lambda\left(\int \varphi_{\epsilon}\on{d}u-1\right)\right]|_{\epsilon=0}=0, \forall \phi
+\end{equation}
+
+By calculation, this gives
+\begin{equation}
+	\int\on{d}u_1\phi(u_1)\left(1+\ln \varphi(u_1)+2G(\eta)\int\on{d}u_2\varphi(u_2)V^*(u_1,u_2))+\eta\int\on{d}u_2\varphi(u_2)A^*(u_1,u_2))+\lambda\right)=0
+\end{equation}
+
+Hence by Lem. \ref{Lem:Var}, we have
+\begin{equation}\label{Eqn:IntegEqn}
+	\begin{split}
+		1+\lambda+\ln \varphi(u_1)&+I^{rep}(u_1)+I^{att}(u_1)=0\\
+		\varphi(u)&=\frac{1}{e^{\lambda+1}}e^{-I^{rep}(u)-I^{att}(u)}\\
+	\end{split}
+\end{equation}
+in which $e^{\lambda+1}$ is a normalization constant according to the restriction put on $\varphi$, and $I^{rep}, I^{att}$ are defined as follows
+\begin{equation}
+	\begin{split}
+		I^{rep}(u)&=2G(\eta)\int\on{d}u_2\varphi(u_2)V^*(u,u_2),\\
+		I^{att}(u)&=\eta\int\on{d}u_2\varphi(u_2)A^*(u,u_2)).
+	\end{split}
+\end{equation}
+
+To solve the integral equation given by Eqn. \ref{Eqn:IntegEqn}, use the standard iteration method. Let any reasonable guess of ODF to be $\varphi_0$, in particular, it can be Onsager's parametrized ODF:
+\begin{equation}
+	\varphi_0(u) = \frac{\alpha\cosh(\alpha u\cdot e_3)}{4\pi\sinh\alpha},
+\end{equation}
+or more simply take to be $\varphi_0(u)\equiv\frac{1}{4\pi}$. Then the iteration goes with
+\begin{equation}
+	\varphi_{n+1}(u)=\on{Norm}\left(e^{-I_n^{rep}(u)-I_n^{att}(u)}\right)
+\end{equation}
+in which $\on{Norm}$ means normalizing the integral over all $u$ to $1$.
+
+And iteration stops when $\|\varphi_{n+1}-\varphi_n\|_2\leq 10^{-4}$. To be more precise, the $2$-norm for a function defined on a sphere is
+\begin{equation}
+	\|f\|_2=\int_{u\in S^2}f(u)^2\on{d}u.
+\end{equation}
+
+

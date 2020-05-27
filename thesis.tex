@@ -31,6 +31,30 @@
 %   listtable  = {表\quad 录}
 % }
 
+% --------------------自添命令
+\newcommand{\mat}[1]{\left(\begin{matrix}#1\end{matrix}\right)}
+\newcommand{\arr}[2][n]{#2_1,#2_2,\cdots,#2_{#1}}
+\newcommand{\xsim}[1]{\stackrel{#1}{\sim}}
+\newcommand{\iprod}[2]{\langle#1,#2\rangle}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\mcal}[1]{\mathcal{#1}}
+\newcommand{\mfk}[1]{\mathfrak{#1}}
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\newcommand{\mcr}[1]{\mathscr{#1}}
+\newcommand{\on}[1]{\operatorname{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\mr}[1]{\mathring{#1}}
+\newcommand{\lr}[1]{\langle{#1}\rangle}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+% --------------------自添命令
+
+
 \begin{document}
 
 % 无编号内容：中英文论文封面、授权页
@@ -58,12 +82,11 @@
 
 % 论文正文
 \input{tex/3intro}
-\input{tex/4model}
-\input{tex/5theory}
-\input{tex/6result}
+\input{tex/4theory}
+\input{tex/5application}
 
 % 全文总结
-\input{tex/7summary}
+\input{tex/6summary}
 
 % 使用英文字母对附录编号
 \appendix
@@ -81,7 +104,7 @@
 % 用于盲审的论文需隐去致谢、发表论文、参与项目、申请专利、简历
 
 % 致谢
-\input{tex/8acknowledgements}
+\input{tex/7acknowledgements}
 
 % 发表论文、参与项目、申请专利、简历
 % 盲审论文中，发表学术论文及参与科研情况等仅以第几作者注明即可，不要出现作者或他人姓名
